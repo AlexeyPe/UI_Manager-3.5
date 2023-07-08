@@ -1,0 +1,182 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://addons/UI_Manager/classes/PanelSlot/panel_slot_ui.gd" type="Script" id=1]
+[ext_resource path="res://addons/UI_Manager/classes/PanelSlot/default_gradients/grey-1-f.tres" type="Texture" id=2]
+[ext_resource path="res://addons/UI_Manager/classes/PanelSlot/default_gradients/grey-1-b.tres" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=13]
+resource_local_to_scene = true
+bg_color = Color( 0.996078, 0.996078, 0.996078, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="VisualShaderNodeTextureUniform" id=9]
+uniform_name = "gradient"
+
+[sub_resource type="VisualShader" id=15]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D gradient;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// TextureUniform:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	{
+		vec4 n_tex_read = texture(gradient, UV.xy);
+		n_out2p0 = n_tex_read.rgb;
+		n_out2p1 = n_tex_read.a;
+	}
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -19.7649, 101.465 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( 180, 140 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=16]
+resource_local_to_scene = true
+shader = SubResource( 15 )
+shader_param/gradient = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="VisualShader" id=7]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D gradient;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// TextureUniform:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	{
+		vec4 n_tex_read = texture(gradient, UV.xy);
+		n_out2p0 = n_tex_read.rgb;
+		n_out2p1 = n_tex_read.a;
+	}
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -19.7649, 101.465 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( 180, 140 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 7 )
+shader_param/gradient = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="panel_border_1" type="PanelContainer"]
+margin_right = 127.0
+margin_bottom = 120.0
+custom_styles/panel = SubResource( 13 )
+script = ExtResource( 1 )
+margin_content_left_right = Vector2( 2, 2 )
+margin_content_top_bottom = Vector2( 4, 12 )
+front_gradient = ExtResource( 3 )
+back_gradient = ExtResource( 2 )
+
+[node name="Margin_width_border_1" type="MarginContainer" parent="."]
+margin_right = 127.0
+margin_bottom = 120.0
+custom_constants/margin_right = 3
+custom_constants/margin_top = 3
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
+
+[node name="panel_border_2" type="PanelContainer" parent="Margin_width_border_1"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 124.0
+margin_bottom = 117.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Margin_width_border_2" type="MarginContainer" parent="Margin_width_border_1/panel_border_2"]
+margin_right = 121.0
+margin_bottom = 114.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="Panel_back" type="PanelContainer" parent="Margin_width_border_1/panel_border_2/Margin_width_border_2"]
+material = SubResource( 16 )
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 117.0
+margin_bottom = 110.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="Margin_panel_front" type="MarginContainer" parent="Margin_width_border_1/panel_border_2/Margin_width_border_2"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 117.0
+margin_bottom = 110.0
+custom_constants/margin_right = 2
+custom_constants/margin_top = 4
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 12
+
+[node name="Panel_front" type="PanelContainer" parent="Margin_width_border_1/panel_border_2/Margin_width_border_2/Margin_panel_front"]
+material = SubResource( 8 )
+margin_left = 2.0
+margin_top = 4.0
+margin_right = 111.0
+margin_bottom = 94.0
+custom_styles/panel = SubResource( 4 )
